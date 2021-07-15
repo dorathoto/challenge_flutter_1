@@ -1,43 +1,74 @@
 import 'package:flutter/material.dart';
+import './questionario.dart';
+import './resultado.dart';
 
 main() => runApp(new PerguntaApp());
 
-class PerguntaApp extends StatelessWidget {
-  void responder() {
-    print('Pergunta respondida!');
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
+  final _perguntas = const [
+    {
+      'texto': 'Qual o físico mais famoso?',
+      'respostas': [
+        {'texto': 'Einsten', 'nota': 10},
+        {'texto': 'Copérnico', 'nota': 1},
+        {'texto': 'Newton', 'nota': 6},
+        {'texto': 'Galileo', 'nota': 3},
+      ],
+    },
+    {
+      'texto': 'Qual o físico mais importante?',
+      'respostas': [
+        {'texto': 'Einsten', 'nota': 8},
+        {'texto': 'Copérnico', 'nota': 4},
+        {'texto': 'Newton', 'nota': 10},
+        {'texto': 'Galileo', 'nota': 5},
+      ],
+    },
+    {
+      'texto': 'Qual o dev mais famoso?',
+      'respostas': [
+        {'texto': 'Léo', 'nota': 10},
+        {'texto': 'Carlos', 'nota': 9},
+        {'texto': 'Paula', 'nota': 8},
+        {'texto': 'Ana', 'nota': 7},
+      ],
+    }
+  ];
+
+  void _responder() {
+    if (temPerguntaSelecionada) {
+      setState(() {
+        _perguntaSelecionada++;
+      });
+    }
   }
 
-  Widget build(BuildContext context) {
-    final perguntas = [
-      'Qual é a sua cor favorita?',
-      'Qual é o seu animal favorito?',
-    ];
+  bool get temPerguntaSelecionada {
+    return _perguntaSelecionada < _perguntas.length;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Perguntas'),
         ),
-        body: Column(
-          children: <Widget>[
-            Text(perguntas[0]),
-            ElevatedButton(
-              child: Text('Resposta 1'),
-              onPressed: responder,
-            ),
-            ElevatedButton(
-              child: Text('Resposta 2'),
-              onPressed: () {
-                print('Resposta 2 foi selecionada!');
-              },
-            ),
-            ElevatedButton(
-              child: Text('Resposta 3'),
-              onPressed: () => print('Resposta 3!!!'),
-            ),
-          ],
-        ),
+        body: temPerguntaSelecionada
+            ? Questionario(
+                perguntas: _perguntas,
+                perguntaSelecionada: _perguntaSelecionada,
+                quandoResponder: _responder,
+              )
+            : Resultado(),
       ),
     );
+  }
+}
+
+class PerguntaApp extends StatefulWidget {
+  _PerguntaAppState createState() {
+    return _PerguntaAppState();
   }
 }
