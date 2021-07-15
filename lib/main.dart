@@ -6,40 +6,43 @@ main() => runApp(new PerguntaApp());
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  var _pontuacaoTotal = 0;
   final _perguntas = const [
     {
       'texto': 'Qual o físico mais famoso?',
       'respostas': [
-        {'texto': 'Einsten', 'nota': 10},
-        {'texto': 'Copérnico', 'nota': 1},
-        {'texto': 'Newton', 'nota': 6},
-        {'texto': 'Galileo', 'nota': 3},
+        {'texto': 'Einsten', 'pontuacao': 10},
+        {'texto': 'Copérnico', 'pontuacao': 1},
+        {'texto': 'Newton', 'pontuacao': 6},
+        {'texto': 'Galileo', 'pontuacao': 3},
       ],
     },
     {
       'texto': 'Qual o físico mais importante?',
       'respostas': [
-        {'texto': 'Einsten', 'nota': 8},
-        {'texto': 'Copérnico', 'nota': 4},
-        {'texto': 'Newton', 'nota': 10},
-        {'texto': 'Galileo', 'nota': 5},
+        {'texto': 'Einsten', 'pontuacao': 8},
+        {'texto': 'Copérnico', 'pontuacao': 4},
+        {'texto': 'Newton', 'pontuacao': 10},
+        {'texto': 'Galileo', 'pontuacao': 5},
       ],
     },
     {
       'texto': 'Qual o dev mais famoso?',
       'respostas': [
-        {'texto': 'Léo', 'nota': 10},
-        {'texto': 'Carlos', 'nota': 9},
-        {'texto': 'Paula', 'nota': 8},
-        {'texto': 'Ana', 'nota': 7},
+        {'texto': 'Léo', 'pontuacao': 10},
+        {'texto': 'Carlos', 'pontuacao': 9},
+        {'texto': 'Paula', 'pontuacao': 8},
+        {'texto': 'Ana', 'pontuacao': 7},
       ],
     }
   ];
 
-  void _responder() {
+  void _responder(int pontuacao) {
     if (temPerguntaSelecionada) {
       setState(() {
         _perguntaSelecionada++;
+        _pontuacaoTotal += pontuacao;
+        print(pontuacao);
       });
     }
   }
